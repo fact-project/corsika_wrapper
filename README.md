@@ -2,6 +2,9 @@
 
 Calls [CORSIKA](https://www.ikp.kit.edu/corsika/) with [IACT](https://www.mpi-hd.mpg.de/hfm/~bernlohr/iact-atmo/) package in a thread safe and modern way.
 
+##Requiers
+- CORSIKA build wit IACT package
+
 ## Usage
 ```bash
 user@machine:~$ corsika_iact -c /home/user/corsika/corsika-74005/run/corsika74005Linux_QGSII_urqmd -i corsika_input_card.txt 
