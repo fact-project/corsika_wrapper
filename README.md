@@ -4,7 +4,7 @@ Calls [CORSIKA](https://www.ikp.kit.edu/corsika/) with [IACT](https://www.mpi-hd
 
 ## Usage
 ```bash
-user@machine:~$ corsika_iact -c /home/sebastian/corsika/corsika-74005/run/corsika74005Linux_QGSII_urqmd -i corsika_input_card.txt 
+user@machine:~$ corsika_iact -c /home/user/corsika/corsika-74005/run/corsika74005Linux_QGSII_urqmd -i corsika_input_card.txt 
 ```
 
 or in python
