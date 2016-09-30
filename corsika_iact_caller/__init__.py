@@ -26,11 +26,11 @@ from .tools import rm_dir
 from .tools import symlink
 from .tools import Path
 from .tools import supposed_to_store_output_path
-from .tools import extract_output_path_from
+from .tools import extract_path_from
 from .tools import CanNotFindTelfilKeyWordInCorsikaInputCard
-from .tools import output_path_taken_from_corsika_input_card
-from .tools import extract_output_path_from
 from .tools import read_text_file
+from .tools import output_path_from_steering_card
+from .tools import overwrite_output_path_in_steering_card
 
 import os
 import glob
@@ -75,7 +75,7 @@ def corsika_iact(corsika_path, input_card_path, save_stdout=False):
     input_card_path = os.path.abspath(input_card_path)
 
     corsika = Path(corsika_path)
-    out = Path(output_path_taken_from_corsika_input_card(input_card_path))
+    out = Path(output_path_from_steering_card(input_card_path))
 
     temp_working_dir = out.basename_wo_extension+'_temp_'+str(random.randint(0,1e6))
     

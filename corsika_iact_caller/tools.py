@@ -7,10 +7,44 @@ def read_text_file(path):
         text = myfile.readlines()
     return text
 
-#-------------------------------------------------------------------------------
+def extract_path_from(line):
+    first_quote = line.find('"')
+    if first_quote == -1:
+        return None
+    second_quote = line[first_quote+1:].find('"') + first_quote+1
+    if second_quote == first_quote:
+        return None
+    print('s', first_quote, 'e', second_quote)
+    return line[first_quote+1:second_quote]
+
+def output_path_from_steering_card(steering_card):
+    output_path = None
+
+    for line in steering_card:
+        if 'TELFIL' in line:
+            output_path = extract_path_from(line)
+
+    return output_path
+
+def overwrite_output_path_in_steering_card(steering_card, output_path):
+
+    modified_steering_card = steering_card.copy()
+
+    output_path_is_set_in_original_card = False
+    for i, line in enumerate(steering_card):
+        if 'TELFIL' in line:
+            modified_steering_card[i] = 'TELFIL'+' "'+output_path+'"'
+            output_path_is_set_in_original_card = True 
+
+    if not output_path_is_set_in_original_card:
+        modified_steering_card.append('TELFIL'+' "'+output_path+'"')
+
+    return modified_steering_card
 
 def all_files_in(path):
     return glob.glob(os.path.join(path, '*'))
+
+#-------------------------------------------------------------------------------
 
 def mkdir(path):
     subprocess.call(['mkdir', path])
@@ -34,11 +68,6 @@ def supposed_to_store_output_path(line):
     else:
         return False
 
-def extract_output_path_from(line):
-    first_quote = line.find('"')
-    second_quote = line[first_quote+1:].find('"') + first_quote+1
-    return line[first_quote+1:second_quote]
-
 class CanNotFindTelfilKeyWordInCorsikaInputCard(Exception):
     pass
 
@@ -49,7 +78,7 @@ def output_path_taken_from_corsika_input_card(input_card_path):
         for line in fileobject:
             if supposed_to_store_output_path(line):
                 found_TELFIL_keyword = True
-                output_path = extract_output_path_from(line)
+                output_path = extract_path_from(line)
 
     if found_TELFIL_keyword:
         return output_path
