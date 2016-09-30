@@ -1,5 +1,7 @@
 import pytest
 import corsika_iact_caller as coc
+import tempfile
+import os
 
 def test_read_steering_card():
     text = coc.read_text_file('test/resources/example_steering_card.txt')
@@ -7,7 +9,8 @@ def test_read_steering_card():
     assert 'RUNNR' in text[0]
     assert 'EVTNR' in text[1]
     assert 'NSHOW' in text[2]
-    assert 'PRMPAR' in text[3] 
+    assert 'PRMPAR' in text[3]
+    assert len(text) == 25
 
 def test_read_output_path_from_line():
     outpath = coc.extract_path_from('TELFIL  "my_file.eventio"')
@@ -63,3 +66,14 @@ def test_all_files_in_path():
     assert len(files) == 2
     assert files[0] == 'test/resources/example_steering_card_without_output_path.txt'
     assert files[1] == 'test/resources/example_steering_card.txt'
+
+def test_config_dict():
+
+    config = {'corsika_executable_path': 'where_ever_you_want'}
+
+    with tempfile.TemporaryDirectory() as temp_path:
+        temp_config_path = os.path.join(temp_path, 'config.json')
+        coc.write_config(config, temp_config_path)
+        read_config = coc.read_config(temp_config_path)
+
+        assert read_config['corsika_executable_path'] == 'where_ever_you_want'

@@ -25,11 +25,13 @@ from .tools import mkdir
 from .tools import rm_dir
 from .tools import symlink
 from .tools import Path
-from .tools import supposed_to_store_output_path
 from .tools import extract_path_from
 from .tools import read_text_file
 from .tools import output_path_from_steering_card
 from .tools import overwrite_output_path_in_steering_card
+from .tools import home_path
+from .tools import write_config
+from .tools import read_config
 
 import os
 import glob

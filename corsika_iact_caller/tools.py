@@ -1,6 +1,7 @@
 import os
 import glob
 import subprocess
+import json
 
 def read_text_file(path):
     with open (path, "r") as myfile:
@@ -44,6 +45,19 @@ def overwrite_output_path_in_steering_card(steering_card, output_path):
 def all_files_in(path):
     return glob.glob(os.path.join(path, '*'))
 
+def home_path():
+    return os.path.expanduser("~")
+
+def write_config(config, path):
+    with open(path, 'w') as outfile:
+        json.dump(config, outfile)
+
+def read_config(path):
+    config = {} 
+    with open(path, 'r') as input_file:
+        config = json.load(input_file)
+    return config
+
 #-------------------------------------------------------------------------------
 
 def mkdir(path):
@@ -61,9 +75,3 @@ class Path:
         self.basename = os.path.basename(self.path)
         self.basename_wo_extension = os.path.splitext(self.basename)[0]
         self.dirname = os.path.dirname(self.path)
-
-def supposed_to_store_output_path(line):
-    if line[0:6] == 'TELFIL':
-        return True
-    else:
-        return False
