@@ -30,6 +30,7 @@ from .tools import extract_output_path_from
 from .tools import CanNotFindTelfilKeyWordInCorsikaInputCard
 from .tools import output_path_taken_from_corsika_input_card
 from .tools import extract_output_path_from
+from .tools import read_text_file
 
 import os
 import glob

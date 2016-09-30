@@ -2,6 +2,13 @@ import os
 import glob
 import subprocess
 
+def read_text_file(path):
+    with open (path, "r") as myfile:
+        text = myfile.readlines()
+    return text
+
+#-------------------------------------------------------------------------------
+
 def all_files_in(path):
     return glob.glob(os.path.join(path, '*'))
 
