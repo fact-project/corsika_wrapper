@@ -67,20 +67,3 @@ def supposed_to_store_output_path(line):
         return True
     else:
         return False
-
-class CanNotFindTelfilKeyWordInCorsikaInputCard(Exception):
-    pass
-
-def output_path_taken_from_corsika_input_card(input_card_path):
-    output_path = ""
-    found_TELFIL_keyword = False
-    with open(input_card_path) as fileobject:
-        for line in fileobject:
-            if supposed_to_store_output_path(line):
-                found_TELFIL_keyword = True
-                output_path = extract_path_from(line)
-
-    if found_TELFIL_keyword:
-        return output_path
-    else:
-        raise CanNotFindTelfilKeyWordInCorsikaInputCard

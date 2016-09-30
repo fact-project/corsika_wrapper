@@ -27,7 +27,6 @@ from .tools import symlink
 from .tools import Path
 from .tools import supposed_to_store_output_path
 from .tools import extract_path_from
-from .tools import CanNotFindTelfilKeyWordInCorsikaInputCard
 from .tools import read_text_file
 from .tools import output_path_from_steering_card
 from .tools import overwrite_output_path_in_steering_card
