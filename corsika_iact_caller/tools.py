@@ -45,8 +45,14 @@ def overwrite_output_path_in_steering_card(steering_card, output_path):
 def all_files_in(path):
     return glob.glob(os.path.join(path, '*'))
 
-def home_path():
+def get_home_path():
     return os.path.expanduser("~")
+
+def get_config_dir_path():
+    return os.path.join(get_home_path(), '.corsika_iact_caller')
+
+def get_config_file_path():
+    return os.path.join(get_config_dir_path(), 'config.json')
 
 def write_config(config, path):
     with open(path, 'w') as outfile:
