@@ -1,4 +1,4 @@
-# The CORSIKA wrapper
+# The CORSIKA wrapper [![Build Status](https://travis-ci.org/fact-project/corsika_wrapper.svg?branch=master)](https://travis-ci.org/fact-project/corsika_wrapper)
 
 Calls [CORSIKA](https://www.ikp.kit.edu/corsika/) in a thread safe and more comfortable way.
 
