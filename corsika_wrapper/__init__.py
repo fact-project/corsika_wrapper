@@ -1,40 +1,19 @@
 """
 Call the KIT CORSIKA simulation
 
-Usage: corsika_iact -i=STEERING_CARD_PATH [-o=OUTPUT_PATH] [-s]
-       corsika_iact -c=CORSIKA_EXECUTABLE_PATH
-       corsika_iact -w | --which_corsika
+Usage: corsika -i=STEERING_CARD_PATH [-o=OUTPUT_PATH] [-s]
+       corsika -c=CORSIKA_EXECUTABLE_PATH
+       corsika -w | --which_corsika
 
 Options:
-    -i --input_path=STEERING_CARD_PATH          Path to corsika steering card
+    -i --input_path=STEERING_CARD_PATH          Path to corsika steering card.
     -o --output_path=OUTPUT_PATH                Overwrites the output path in 
-                                                the steering card
+                                                the steering card.
     -s --save_stdout                            Saves stdout and stderr of 
-                                                Corsika next to OUTPUT_PATH
-    -c --corsika_path=CORSIKA_EXECUTABLE_PATH   Path to the corsika executable
-    -w --which_corsika                          Shows which corsika executable 
-                                                is used
-
-Notes:
-    How?
-    ----------
-        1st)
-            Specify the corsika executable to be used using the -c option.
-
-        2nd)
-            Call Corsika with the -i [and -o] options   
-
-    Threadsafe
-    ----------
-        Each corsika call runs in its own, fully copied, and temporary 'run' 
-        directory.
-
-    Easy
-    ----------
-        The output path can be specified on the command line [-o].
-        The output path specified in the steering card will be overwritten. 
-        However, the intial steering card remains untouched. 
-        Further, the write protection of the output files is removed.
+                                                Corsika next to OUTPUT_PATH.
+    -c --corsika_path=CORSIKA_EXECUTABLE_PATH   Path to the corsika executable.
+    -w --which_corsika                          Shows which corsika executable.
+                                                is used.
 """
 import docopt
 import tempfile

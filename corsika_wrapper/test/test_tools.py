@@ -1,5 +1,5 @@
 import pytest
-import corsika_caller as coc
+import corsika_wrapper as coc
 import tempfile
 import os
 
