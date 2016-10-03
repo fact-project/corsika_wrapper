@@ -45,7 +45,7 @@ import shutil
 from . import tools
 
 
-def corsika_iact(
+def corsika(
     corsika_path, 
     steering_card_path, 
     output_path=None, 
@@ -171,7 +171,7 @@ def main():
 
             corsika_path = config['corsika_executable_path']
 
-            corsika_return_value = corsika_iact(
+            corsika_return_value = corsika(
                 corsika_path=corsika_path, 
                 steering_card_path=arguments['--input_path'],
                 output_path=arguments['--output_path'],

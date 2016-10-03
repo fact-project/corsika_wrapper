@@ -50,7 +50,7 @@ def get_home_path():
 
 
 def get_config_dir_path():
-    return os.path.join(get_home_path(), '.corsika_iact_caller')
+    return os.path.join(get_home_path(), '.corsika_caller')
 
 
 def get_config_file_path():
