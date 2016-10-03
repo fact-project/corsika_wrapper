@@ -9,7 +9,7 @@ The CORSIKA simulation is certainly one of the most advanced simulation tools in
 - Have write access to your CORSIKA output files
 - Store the CORSKA stdout and stderror next to your output [optional `-s`]
 
-## How
+## How to use
 ### Once
 Tell the corsika wrapper __once__ which CORISKA executable you want to run with the `-c` option.
 ```bash
@@ -21,8 +21,25 @@ Call corsika like a modern program and specify (if you want) your output path on
 ```bash
 user@machine:~$ corsika -i /home/user/reaserch/my_steering_card.txt -o /home/user/results/my_run.evtio
 ```
+## Python API
+Use the corsika wrapper API directly in python to script your corsika calls.
 
-The CORSIKA wrapper first creates a temporary directory. Second, all CORSIKA dependencies in CORSIKA's 'run' directory are copied into the temporary working directory. Third, CORSIKA is called in the temporary working directory and gets the steering card piped in via stdin. If an output path is specified on the command line `[-o]`, the output path in the steering card piped into CORSIKA is overwritten. Fourth, when CORSIKA is done, the temporary working directory is removed. Finally the output file's write protection is removed. The CORSIKA wrapper returns the CORSIKA return value. Optionally `[-s]`, CORSIKA's stdout and stderr can be dumped into textfiles in the output path which shadow the name of the output.
+```python
+In [1]: import corsika_wrapper as cw
+In [2]: return_value = cw.corsika(
+                        steering_card=cw.read_steering_card('/home/user/reaserch/my_steering_card.txt'), 
+                        output_path='/home/user/results/my_run.evtio', 
+                        save_stdout=True)
+```
+
+## How it is done
+1. The CORSIKA wrapper creates a temporary directory. 
+2. All CORSIKA dependencies in CORSIKA's 'run' directory are copied into the temporary working directory. 
+3. CORSIKA is called in the temporary working directory and gets the steering card piped in via stdin. If an output path is specified on the command line `[-o]`, the output path in the steering card piped into CORSIKA is overwritten. 
+4. When CORSIKA is done, the temporary working directory is removed. 
+5. Finally the output file's write protection is removed. The CORSIKA wrapper returns the CORSIKA return value. 
+
+Optionally `[-s]`, CORSIKA's stdout and stderr can be dumped into textfiles in the output path which shadow the name of the output.
 
 ## Why
 Calling CORSIKA is special. CORSIKA demands stdin, it can only be called in a certain 'run' directory environment, and it must not be called in parallel within the same working directory. (Told so by Konrad Bernloeh and Dieter Heck).
