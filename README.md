@@ -1,6 +1,8 @@
 # The CORSIKA wrapper [![Build Status](https://travis-ci.org/fact-project/corsika_wrapper.svg?branch=master)](https://travis-ci.org/fact-project/corsika_wrapper)
-
 A wrapper for the [CORSIKA](https://www.ikp.kit.edu/corsika/) cosmic ray air shower simulation by the [Karlsruhe Institute for Technology](https://www.kit.edu/)
+
+The CORSIKA simulation is certainly one of the most advanced simulation tools in modern particle physics, and even beyond its practicle use, you have to admire the sheer efficiency and speed of the fortran77 based CORSIKA. However, over the years multithread machines showed up, and todays students might not be used anymore to the user interface of CORSIKA. This CORSIKA call wrapper trys to overcome some of these issues. It allows you to:
+
 - Run multiple CORSIKA instances in parallel (thread safe)
 - Call CORSIKA from anywhere, systemwide on your machine
 - Specify the output path in the CORSIKA call on the command line [optional `-o`]
@@ -9,7 +11,7 @@ A wrapper for the [CORSIKA](https://www.ikp.kit.edu/corsika/) cosmic ray air sho
 
 ## How
 ### Once
-Tell the corsika wrapper which CORISKA executable it has to use with the `-c` option.
+Tell the corsika wrapper __once__ which CORISKA executable you want to run with the `-c` option.
 ```bash
 user@machine:~$ corsika -c /home/user/corsika/corsika-74005/run/corsika74005Linux_QGSII_urqmd
 ```
