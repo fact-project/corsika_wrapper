@@ -9,15 +9,20 @@ The CORSIKA simulation is certainly one of the most advanced simulation tools in
 - Have write access to your CORSIKA output files
 - Store the CORSKA stdout and stderror next to your output [optional `-s`]
 
+## Install
+```bash
+pip install git+https://github.com/fact-project/corsika_wrapper/call_it_like_a_sane_program
+```
+
 ## How to use
 ### Once
-Tell the corsika wrapper __once__ which CORISKA executable you want to run with the `-c` option.
+tell the corsika wrapper which CORISKA executable you want to run with the `-c` option.
 ```bash
 user@machine:~$ corsika -c /home/user/corsika/corsika-74005/run/corsika74005Linux_QGSII_urqmd
 ```
 
-### For every CORSIKA call
-Call corsika like a modern program and specify (if you want) your output path on the command line.
+### Call CORISKA
+like a modern program and specify (if you want) your output path on the command line.
 ```bash
 user@machine:~$ corsika -i /home/user/reaserch/my_steering_card.txt -o /home/user/results/my_run.evtio
 ```
