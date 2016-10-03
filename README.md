@@ -1,4 +1,4 @@
-# The CORSIKA wrapper [![Build Status](https://travis-ci.org/fact-project/corsika_wrapper.svg?branch=master)](https://travis-ci.org/fact-project/corsika_wrapper)
+# The CORSIKA wrapper [![Build Status](https://travis-ci.org/fact-project/corsika_wrapper.svg?branch=call_it_like_a_sane_program)](https://travis-ci.org/fact-project/corsika_wrapper)
 A wrapper for the [CORSIKA](https://www.ikp.kit.edu/corsika/) cosmic ray air shower simulation by the [Karlsruhe Institute for Technology](https://www.kit.edu/)
 
 The CORSIKA simulation is certainly one of the most advanced simulation tools in modern particle physics, and even beyond its practicle use, you have to admire the sheer efficiency and speed of the fortran77 based CORSIKA. However, over the years multithread machines showed up, and todays students might not be used anymore to the user interface of CORSIKA. This CORSIKA call wrapper trys to overcome some of these issues. It allows you to:
