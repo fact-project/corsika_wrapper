@@ -2,10 +2,16 @@ import pytest
 import corsika_wrapper as coc
 import tempfile
 import os
+import pkg_resources
+
+
+def test_is_install_folder_a_directory():
+    assert os.path.isdir(os.path.dirname(coc.__file__))
+
 
 def test_read_steering_card():
-    text = coc.tools.read_text_file('test/resources/example_steering_card.txt')
-
+    print(os.getcwd())
+    text = coc.tools.read_text_file('corsika_wrapper/tests/resources/example_steering_card.txt')
     assert 'RUNNR' in text[0]
     assert 'EVTNR' in text[1]
     assert 'NSHOW' in text[2]
@@ -33,14 +39,14 @@ def test_read_output_path_from_line_with_broken_string_in_it():
 
 def test_output_path_from_steering_card():
     steering_card = coc.tools.read_text_file(
-        'test/resources/example_steering_card.txt')
+        'corsika_wrapper/tests/resources/example_steering_card.txt')
     output_path = coc.tools.output_path_from_steering_card(steering_card)
     assert output_path == 'my_file.eventio'
 
 
 def test_overwrite_output_path_in_steering_card():
     steering_card = coc.tools.read_text_file(
-        'test/resources/example_steering_card.txt')
+        'corsika_wrapper/tests/resources/example_steering_card.txt')
 
     new_steering_card = coc.tools.overwrite_output_path_in_steering_card(
         steering_card,
@@ -55,7 +61,7 @@ def test_overwrite_output_path_in_steering_card():
 
 def test_set_output_path_in_steering_card_when_output_not_defined_in_steering_card():
     steering_card = coc.tools.read_text_file(
-        'test/resources/example_steering_card_without_output_path.txt')
+        'corsika_wrapper/tests/resources/example_steering_card_without_output_path.txt')
 
     new_steering_card = coc.tools.overwrite_output_path_in_steering_card(
         steering_card,

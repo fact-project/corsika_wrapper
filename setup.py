@@ -11,8 +11,9 @@ setup(
     packages=[
         'corsika_wrapper',
     ],
+    package_data={'corsika_wrapper': ['resources/*']},
     install_requires=[
-        'docopt'
+        'docopt',
     ],
     entry_points={'console_scripts': [
         'corsika = corsika_wrapper.__init__:main',
