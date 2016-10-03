@@ -1,8 +1,5 @@
 import os
-import glob
-import subprocess
 import json
-import random
 
 def read_text_file(path):
     with open (path, "r") as myfile:

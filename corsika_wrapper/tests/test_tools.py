@@ -11,7 +11,8 @@ def test_is_install_folder_a_directory():
 
 def test_read_steering_card():
     print(os.getcwd())
-    text = coc.tools.read_text_file('corsika_wrapper/tests/resources/example_steering_card.txt')
+    text = coc.tools.read_text_file(
+        'corsika_wrapper/tests/resources/example_steering_card.txt')
     assert 'RUNNR' in text[0]
     assert 'EVTNR' in text[1]
     assert 'NSHOW' in text[2]
