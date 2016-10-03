@@ -1,19 +1,24 @@
 # corsika_iact_caller
 
-Calls [CORSIKA](https://www.ikp.kit.edu/corsika/) with [IACT](https://www.mpi-hd.mpg.de/hfm/~bernlohr/iact-atmo/) package in a thread safe and modern way.
+Calls [CORSIKA](https://www.ikp.kit.edu/corsika/) with [IACT](https://www.mpi-hd.mpg.de/hfm/~bernlohr/iact-atmo/) package in a thread safe and more comfortable way.
 
 ##Requiers
-- CORSIKA build wit IACT package
+- CORSIKA
 
 ## Usage
+### 1st)
 ```bash
-user@machine:~$ corsika_iact -c /home/user/corsika/corsika-74005/run/corsika74005Linux_QGSII_urqmd -i corsika_input_card.txt 
+user@machine:~$ corsika -c /home/user/corsika/corsika-74005/run/corsika74005Linux_QGSII_urqmd
+```
+### 2nd)
+```bash
+user@machine:~$ corsika -i /home/user/reaserch/my_steering_card.txt -o /home/user/results/my_run.evtio
 ```
 
 or in python
 ```python
-import corsika_iact_caller as cic
-cic.corsika_iact('/home/user/corsika/corsika-74005/run/corsika74005Linux_QGSII_urqmd', '/home/user/corsika/corsika_input_card.txt')
+import corsika_caller as coc
+coc.corsika('/home/user/corsika/corsika-74005/run/corsika74005Linux_QGSII_urqmd', '/home/user/corsika/corsika_input_card.txt')
 ```
 
 ## Why
