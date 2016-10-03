@@ -1,6 +1,6 @@
 # The CORSIKA wrapper [![Build Status](https://travis-ci.org/fact-project/corsika_wrapper.svg?branch=master)](https://travis-ci.org/fact-project/corsika_wrapper)
 
-A wrapper for [CORSIKA](https://www.ikp.kit.edu/corsika/)
+A wrapper for the [CORSIKA](https://www.ikp.kit.edu/corsika/) cosmic ray air shower simulation by the [Karlsruhe Institute for Technology](https://www.kit.edu/)
 - Run multiple CORSIKA instances in parallel (thread safe)
 - Call CORSIKA from anywhere, systemwide on your machine
 - Specify the output path in the CORSIKA call on the command line [optional `-o`]
