@@ -1,11 +1,11 @@
 # The CORSIKA wrapper [![Build Status](https://travis-ci.org/fact-project/corsika_wrapper.svg?branch=master)](https://travis-ci.org/fact-project/corsika_wrapper)
 A wrapper for the [CORSIKA](https://www.ikp.kit.edu/corsika/) cosmic ray air shower simulation by the [Karlsruhe Institute for Technology](https://www.kit.edu/)
 
-The CORSIKA simulation is certainly one of the most advanced simulation tools in modern particle physics, and even beyond its practicle use, you have to admire the sheer efficiency and speed of the fortran77 based CORSIKA. However, over the years multithread machines showed up, and todays students might not be used anymore to the user interface of CORSIKA. This CORSIKA call wrapper trys to overcome some of these issues. It allows you to:
+The CORSIKA simulation is certainly one of the most advanced simulation tools in modern astroparticle physics, and even beyond its practicle use, you have to admire the sheer efficiency and speed of the fortran77 based CORSIKA. However, over the years multithread machines showed up, and todays students might not be used anymore to the user interfaces of the time CORSIKA was created. This wrapper makes the CORSIKA call easier, more comfortable, and thread safe. It allows you to:
 
-- Run multiple CORSIKA instances in parallel (thread safe)
+- Call multiple CORSIKA instances in parallel (thread safe)
 - Call CORSIKA from anywhere, systemwide on your machine
-- Specify the output path in the CORSIKA call on the command line [optional `-o`]
+- Specify your output path in the CORSIKA call on the command line [optional `-o`]
 - Have write access to your CORSIKA output files
 - Store the CORSKA stdout and stderror next to your output [optional `-s`]
 
@@ -16,7 +16,7 @@ pip install git+https://github.com/fact-project/corsika_wrapper
 
 ## How to use
 ### Once
-tell the corsika wrapper which CORISKA executable you want to run with the `-c` option.
+tell the corsika wrapper which CORISKA executable you want to run, using the `-c` option.
 ```bash
 user@machine:~$ corsika -c /home/user/corsika/corsika-74005/run/corsika74005Linux_QGSII_urqmd
 ```
@@ -44,7 +44,7 @@ In [2]: return_value = cw.corsika(
 4. When CORSIKA is done, the temporary working directory is removed. 
 5. Finally the output file's write protection is removed. The CORSIKA wrapper returns the CORSIKA return value. 
 
-Optionally `[-s]`, CORSIKA's stdout and stderr can be dumped into textfiles in the output path which shadow the name of the output.
+Optionally `[-s]`, CORSIKA's stdout and stderr can be written into textfiles next to the output.
 
 ## Why
 Calling CORSIKA is special. CORSIKA demands stdin, it can only be called in a certain 'run' directory environment, and it must not be called in parallel within the same working directory. (Told so by Konrad Bernloeh and Dieter Heck).
