@@ -26,9 +26,14 @@ def corsika(
                                         to the output_path. 
     """
     # CORSIKA EXECUTABLE PATH
-    config = tools.read_config(tools.get_config_file_path())
-    corsika_path = config['corsika_executable_path']
-    corsika = tools.Path(corsika_path)
+    try:
+        config = tools.read_config(tools.get_config_file_path())
+        corsika_path = config['corsika_executable_path']
+        corsika = tools.Path(corsika_path)
+    except FileNotFoundError:
+        print('No corsika executable specified yet.') 
+        print('Use -c to specify the corsika executable')
+        raise FileNotFoundError
 
     # OUTPUT PATH
     if output_path is None:
@@ -40,7 +45,7 @@ def corsika(
             steering_card, 
             out.absolute)
 
-    # THREAD SAFE 
+    # THREAD SAFE
     with tempfile.TemporaryDirectory() as temp_path:
 
         tmp_run = tools.Path(os.path.join(temp_path, 'run'))
