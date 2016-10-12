@@ -14,7 +14,6 @@ def extract_path_from_line(line):
     second_quote = line[first_quote+1:].find('"') + first_quote+1
     if second_quote == first_quote:
         return None
-    print('s', first_quote, 'e', second_quote)
     return line[first_quote+1:second_quote]
 
 
