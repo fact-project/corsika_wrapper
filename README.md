@@ -47,5 +47,5 @@ In [2]: return_value = cw.corsika(
 Optionally `[-s]`, CORSIKA's stdout and stderr can be written into textfiles next to the output.
 
 ## Why
-Calling CORSIKA is special. CORSIKA demands stdin, it can only be called in a certain 'run' directory environment, and it must not be called in parallel within the same working directory. (Told so by Konrad Bernloeh and Dieter Heck).
+Calling CORSIKA is special. CORSIKA demands stdin, it can only be called in a certain 'run' directory environment, and it must not be called in parallel within the same working directory because CORSIKA is writing to the fiels in its run directory while running. (private communication with Konrad Bernloeh and Dieter Heck).
 Further, the output path can not be specified on the command line and the output files are write protected.
