@@ -45,6 +45,13 @@ def test_output_path_from_steering_card():
     assert output_path == 'my_file.eventio'
 
 
+def test_find_EXIT_line_in_steering_card():
+    steering_card = coc.tools.read_text_file(
+        'corsika_wrapper/tests/resources/example_steering_card.txt')
+    exit_line_number = coc.tools.find_EXIT_line(steering_card)
+    assert exit_line_number == 24
+
+
 def test_overwrite_output_path_in_steering_card():
     steering_card = coc.tools.read_text_file(
         'corsika_wrapper/tests/resources/example_steering_card.txt')

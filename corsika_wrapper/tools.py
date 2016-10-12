@@ -27,6 +27,13 @@ def output_path_from_steering_card(steering_card):
     return output_path
 
 
+def find_EXIT_line(steering_card):
+    for i, line in enumerate(steering_card):
+        if 'EXIT' in line:
+            return i
+    return -1
+
+
 def overwrite_output_path_in_steering_card(steering_card, output_path):
     modified_steering_card = steering_card.copy()
     output_path_is_set_in_original_card = False
@@ -36,7 +43,9 @@ def overwrite_output_path_in_steering_card(steering_card, output_path):
             output_path_is_set_in_original_card = True 
 
     if not output_path_is_set_in_original_card:
-        modified_steering_card.append('TELFIL'+' "'+output_path+'"\n')
+        modified_steering_card.insert(
+            find_EXIT_line(modified_steering_card),
+            'TELFIL'+' "'+output_path+'"\n')
 
     return modified_steering_card
 
