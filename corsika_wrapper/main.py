@@ -17,24 +17,27 @@ Options:
 """
 import docopt
 import sys
-from . import api
+from ._api import read_steering_card
+from ._api import set_corsika_executable_in_config
+from ._api import get_corsika_executable_from_config
+from ._api import corsika
 
 def main():
     try:
         arguments = docopt.docopt(__doc__)
         if arguments['--which_corsika']:
             try:
-                print(api.get_corsika_executable_from_config())
+                print(get_corsika_executable_from_config())
             except FileNotFoundError:
                 print('No corsika executable specified yet.') 
                 print('Use -c to specify the corsika executable')
 
         elif arguments['--corsika_path']:
-            api.set_corsika_executable_in_config(arguments['--corsika_path'])
+            set_corsika_executable_in_config(arguments['--corsika_path'])
         else:
-            steering_card = api.read_steering_card(arguments['--input_path'])
+            steering_card = read_steering_card(arguments['--input_path'])
 
-            corsika_return_value = api.corsika(
+            corsika_return_value = corsika(
                 steering_card=steering_card,
                 output_path=arguments['--output_path'],
                 save_stdout=arguments['--save_stdout'],
