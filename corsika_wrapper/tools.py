@@ -1,9 +1,40 @@
 import os
 import json
+from collections import OrderedDict
 
 def read_text_file(path):
     with open (path, "r") as myfile:
         text = myfile.readlines()
+    return text
+
+
+def read_steering_card(path):
+    lines = read_text_file(path)
+    steering_card = OrderedDict()
+    for line in lines:
+        key_and_value = line.split(' ', 1)
+        if len(key_and_value) == 1:
+            key = key_and_value[0]
+            value = ['']
+        else:
+            key = key_and_value[0]
+            value = [key_and_value[1].strip()]
+
+        if key in steering_card.keys():
+            steering_card[key].append(value[0])
+        else:
+            steering_card[key] = value
+    return steering_card
+
+
+def steering_card2str(steering_card):
+    text = ''
+    for key in steering_card:
+        for value in steering_card[key]:
+            if key != 'EXIT':
+                text += key+' '+value+'\n'
+            else:
+                text += key
     return text
 
 
@@ -19,33 +50,26 @@ def extract_path_from_line(line):
 
 def output_path_from_steering_card(steering_card):
     output_path = None
-
-    for line in steering_card:
-        if 'TELFIL' in line:
-            output_path = extract_path_from_line(line)
-
+    for key in steering_card:
+        if 'TELFIL' in key:
+            output_path = extract_path_from_line(steering_card[key][0])
+    print(output_path)
     return output_path
 
 
-def find_EXIT_line(steering_card):
-    for i, line in enumerate(steering_card):
-        if 'EXIT' in line:
-            return i
-    return -1
-
-
 def overwrite_output_path_in_steering_card(steering_card, output_path):
-    modified_steering_card = steering_card.copy()
+    modified_steering_card = OrderedDict()
     output_path_is_set_in_original_card = False
-    for i, line in enumerate(steering_card):
-        if 'TELFIL' in line:
-            modified_steering_card[i] = 'TELFIL'+' "'+output_path+'"\n'
+    for key in steering_card:
+        if 'TELFIL' in key:
+            modified_steering_card[key] = ['"'+output_path+'"']
             output_path_is_set_in_original_card = True 
-
-    if not output_path_is_set_in_original_card:
-        modified_steering_card.insert(
-            find_EXIT_line(modified_steering_card),
-            'TELFIL'+' "'+output_path+'"\n')
+        elif 'EXIT' in key:
+            if not output_path_is_set_in_original_card:
+                modified_steering_card['TELFIL'] = ['"'+output_path+'"']
+                modified_steering_card[key] = ['']
+        else:
+            modified_steering_card[key] = steering_card[key]
 
     return modified_steering_card
 

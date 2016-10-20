@@ -56,7 +56,9 @@ def corsika(
             symlinks=False)
 
         steering_card_pipe, pwrite = os.pipe()
-        os.write(pwrite, str.encode(''.join(modified_steering_card)))
+        os.write(
+            pwrite, 
+            str.encode(tools.steering_card2str(modified_steering_card)))
         os.close(pwrite)
 
         if save_stdout:
@@ -116,6 +118,20 @@ def set_corsika_executable_in_config(corsika_path):
 
 def read_steering_card(path):
     """
-    Read in a corsika steering card.
+    Read a corsika steering card text file into a dictionary.
+
+    Returns
+    -------
+    steering_card       An ordered dictionary of all the keys and values in a 
+                        CORSIKA steering card. In the CORSIKA steering card, 
+                        some keys may apear multiple times e.g. SEED or
+                        TELESCOPE. Therefore, for each key in the dictionary 
+                        there is a list of the lines to this key in the steering
+                        card.
+
+    Parameters
+    ----------
+    path                Path to the CORSIKA steering card text file.
+
     """
-    return tools.read_text_file(path)
+    return tools.read_steering_card(path)
