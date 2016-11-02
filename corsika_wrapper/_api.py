@@ -46,7 +46,7 @@ def corsika(
             out.absolute)
 
     # THREAD SAFE
-    with tempfile.TemporaryDirectory() as temp_path:
+    with tempfile.TemporaryDirectory(prefix='corsika_') as temp_path:
 
         tmp_run = tools.Path(os.path.join(temp_path, 'run'))
 
@@ -65,12 +65,12 @@ def corsika(
             corsika_stdout = open(
                 os.path.join(
                     out.dirname, 
-                    out.basename_without_extension+'_stdout.txt'), 
+                    out.basename+'.stdout'), 
                 'w')
             corsika_stderr = open(
                 os.path.join(
                     out.dirname, 
-                    out.basename_without_extension+'_stderr.txt'), 
+                    out.basename+'.stderr'), 
                 'w')
 
             corsika_return_value = subprocess.call(
