@@ -1,5 +1,5 @@
 """
-Call the KIT CORSIKA simulation
+Call the KIT CORSIKA Cosmic Ray Extensive Air Shower Simulation
 
 Usage: corsika -i=STEERING_CARD_PATH [-o=OUTPUT_PATH] [-s]
        corsika -c=CORSIKA_EXECUTABLE_PATH
