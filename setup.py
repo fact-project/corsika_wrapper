@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='corsika_wrapper',
-    version='1.0.0',
+    version='1.0.1',
     description='Call CORSIKA in a thread safe and comfortable way.',
     url='https://github.com/fact-project/corsika_wrapper.git',
     author='Sebastian Achim Mueller',
@@ -11,7 +11,7 @@ setup(
     packages=[
         'corsika_wrapper',
     ],
-    package_data={'corsika_wrapper': ['resources/*']},
+    package_data={'corsika_wrapper': ['tests/resources/*']},
     install_requires=[
         'docopt',
     ],
