@@ -7,7 +7,7 @@ setup(
     url='https://github.com/fact-project/corsika_wrapper.git',
     author='Sebastian Achim Mueller',
     author_email='sebmuell@phys.ethz.ch',
-    license='MIT',
+    license='GPL v3',
     packages=[
         'corsika_wrapper',
     ],
