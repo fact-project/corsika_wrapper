@@ -70,11 +70,12 @@ def test_overwrite_output_path_in_steering_card():
     old_output_path = cw.tools.output_path_from_steering_card(steering_card)
     assert old_output_path == 'my_file.eventio'
 
-    new_output_path = cw.tools.output_path_from_steering_card(new_steering_card)
+    new_output_path = cw.tools.output_path_from_steering_card(
+        new_steering_card)
     assert new_output_path == 'new/path/for/output.eventio'
 
 
-def test_set_output_path_in_steering_card_when_output_not_defined_in_steering_card():
+def test_output_in_steering_card_when_output_not_defined_in_steering_card():
     steering_card = cw.tools.read_steering_card(
         pkg_resources.resource_filename(
             'corsika_wrapper',
@@ -85,9 +86,10 @@ def test_set_output_path_in_steering_card_when_output_not_defined_in_steering_ca
         'new/path/for/output.eventio')
 
     old_output_path = cw.tools.output_path_from_steering_card(steering_card)
-    assert old_output_path == None
+    assert old_output_path is None
 
-    new_output_path = cw.tools.output_path_from_steering_card(new_steering_card)
+    new_output_path = cw.tools.output_path_from_steering_card(
+        new_steering_card)
     assert new_output_path == 'new/path/for/output.eventio'
 
 
@@ -133,6 +135,7 @@ def test_read_steering_card_dict():
     assert steering_card['TSTART'][0] == 'T'
     assert steering_card['EXIT'][0] == ''
 
+
 def test_read_steering_card_dict():
     path = pkg_resources.resource_filename(
             'corsika_wrapper',
@@ -141,11 +144,9 @@ def test_read_steering_card_dict():
     steering_card_string = cw.tools.steering_card2str(steering_card)
 
     raw = ''
-    with open (path, "r") as myfile:
+    with open(path, "r") as myfile:
         lines = myfile.readlines()
     for line in lines:
-        raw+=line
+        raw += line
 
     assert raw == steering_card_string
-
-

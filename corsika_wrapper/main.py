@@ -22,6 +22,7 @@ from ._api import set_corsika_executable_in_config
 from ._api import get_corsika_executable_from_config
 from ._api import corsika
 
+
 def main():
     try:
         arguments = docopt.docopt(__doc__)

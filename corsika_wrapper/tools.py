@@ -2,8 +2,9 @@ import os
 import json
 from collections import OrderedDict
 
+
 def read_text_file(path):
-    with open (path, "r") as myfile:
+    with open(path, "r") as myfile:
         text = myfile.readlines()
     return text
 

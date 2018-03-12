@@ -8,7 +8,8 @@ from . import tools
 def corsika(
     steering_card,
     output_path=None,
-    save_stdout=False):
+    save_stdout=False
+):
     """
     Call corsika in a threadsafe way
 
@@ -99,7 +100,8 @@ def corsika(
 
 def get_corsika_executable_from_config():
     """
-    Returns the corsika executable path from the config file in the user's home.
+    Returns the corsika executable path from the config file in the user's
+    home.
     """
     config = tools.read_config(tools.get_config_file_path())
     return config['corsika_executable_path']
@@ -126,8 +128,8 @@ def read_steering_card(path):
                         CORSIKA steering card. In the CORSIKA steering card,
                         some keys may apear multiple times e.g. SEED or
                         TELESCOPE. Therefore, for each key in the dictionary
-                        there is a list of the lines to this key in the steering
-                        card.
+                        there is a list of the lines to this key in the
+                        steering card.
 
     Parameters
     ----------
