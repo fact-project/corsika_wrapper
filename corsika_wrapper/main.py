@@ -7,9 +7,9 @@ Usage: corsika -i=STEERING_CARD_PATH [-o=OUTPUT_PATH] [-s]
 
 Options:
     -i --input_path=STEERING_CARD_PATH          Path to corsika steering card.
-    -o --output_path=OUTPUT_PATH                Overwrites the output path in 
+    -o --output_path=OUTPUT_PATH                Overwrites the output path in
                                                 the steering card.
-    -s --save_stdout                            Saves stdout and stderr of 
+    -s --save_stdout                            Saves stdout and stderr of
                                                 Corsika next to OUTPUT_PATH.
     -c --corsika_path=CORSIKA_EXECUTABLE_PATH   Path to the corsika executable.
     -w --which_corsika                          Shows which corsika executable.
@@ -29,7 +29,7 @@ def main():
             try:
                 print(get_corsika_executable_from_config())
             except FileNotFoundError:
-                print('No corsika executable specified yet.') 
+                print('No corsika executable specified yet.')
                 print('Use -c to specify the corsika executable')
 
         elif arguments['--corsika_path']:

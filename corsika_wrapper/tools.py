@@ -63,7 +63,7 @@ def overwrite_output_path_in_steering_card(steering_card, output_path):
     for key in steering_card:
         if 'TELFIL' in key:
             modified_steering_card[key] = ['"'+output_path+'"']
-            output_path_is_set_in_original_card = True 
+            output_path_is_set_in_original_card = True
         elif 'EXIT' in key:
             if not output_path_is_set_in_original_card:
                 modified_steering_card['TELFIL'] = ['"'+output_path+'"']
@@ -92,7 +92,7 @@ def write_config(config, path):
 
 
 def read_config(path):
-    config = {} 
+    config = {}
     with open(path, 'r') as input_file:
         config = json.load(input_file)
     return config

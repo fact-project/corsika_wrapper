@@ -6,24 +6,24 @@ from . import tools
 
 
 def corsika(
-    steering_card, 
-    output_path=None, 
+    steering_card,
+    output_path=None,
     save_stdout=False):
     """
     Call corsika in a threadsafe way
 
     Parameters
     ----------
-        steering_card                   A list of strings representing the 
+        steering_card                   A list of strings representing the
                                         corsika steering card commands.
 
         output_path     (optional)      Path to the output. This option
-                                        overwrites the output path specified in 
+                                        overwrites the output path specified in
                                         the steering card.
 
-        save_stdout     (optional)      If True, the std out and std error of 
+        save_stdout     (optional)      If True, the std out and std error of
                                         corsika is written into text files next
-                                        to the output_path. 
+                                        to the output_path.
     """
     # CORSIKA EXECUTABLE PATH
     try:
@@ -31,7 +31,7 @@ def corsika(
         corsika_path = config['corsika_executable_path']
         corsika = tools.Path(corsika_path)
     except FileNotFoundError:
-        print('No corsika executable specified yet.') 
+        print('No corsika executable specified yet.')
         print('Use -c to specify the corsika executable')
         raise FileNotFoundError
 
@@ -42,7 +42,7 @@ def corsika(
     else:
         out = tools.Path(output_path)
         modified_steering_card = tools.overwrite_output_path_in_steering_card(
-            steering_card, 
+            steering_card,
             out.absolute)
 
     # THREAD SAFE
@@ -51,32 +51,32 @@ def corsika(
         tmp_run = tools.Path(os.path.join(temp_path, 'run'))
 
         shutil.copytree(
-            os.path.dirname(corsika_path), 
+            os.path.dirname(corsika_path),
             tmp_run.absolute,
             symlinks=False)
 
         steering_card_pipe, pwrite = os.pipe()
         os.write(
-            pwrite, 
+            pwrite,
             str.encode(tools.steering_card2str(modified_steering_card)))
         os.close(pwrite)
 
         if save_stdout:
             corsika_stdout = open(
                 os.path.join(
-                    out.dirname, 
-                    out.basename+'.stdout'), 
+                    out.dirname,
+                    out.basename+'.stdout'),
                 'w')
             corsika_stderr = open(
                 os.path.join(
-                    out.dirname, 
-                    out.basename+'.stderr'), 
+                    out.dirname,
+                    out.basename+'.stderr'),
                 'w')
 
             corsika_return_value = subprocess.call(
                 os.path.join(tmp_run.absolute, corsika.basename),
-                stdin=steering_card_pipe, 
-                stdout=corsika_stdout, 
+                stdin=steering_card_pipe,
+                stdout=corsika_stdout,
                 stderr=corsika_stderr,
                 cwd=tmp_run.absolute
             )
@@ -85,7 +85,7 @@ def corsika(
             corsika_stdout.close()
         else:
             corsika_return_value = subprocess.call(
-                os.path.join(tmp_run.absolute, corsika.basename), 
+                os.path.join(tmp_run.absolute, corsika.basename),
                 stdin=steering_card_pipe,
                 cwd=tmp_run.absolute
             )
@@ -111,7 +111,7 @@ def set_corsika_executable_in_config(corsika_path):
     """
     if not os.path.isdir(tools.get_config_dir_path()):
         os.mkdir(tools.get_config_dir_path())
-    config = {'corsika_executable_path': corsika_path}    
+    config = {'corsika_executable_path': corsika_path}
     tools.write_config(config, tools.get_config_file_path())
     print(get_corsika_executable_from_config())
 
@@ -122,10 +122,10 @@ def read_steering_card(path):
 
     Returns
     -------
-    steering_card       An ordered dictionary of all the keys and values in a 
-                        CORSIKA steering card. In the CORSIKA steering card, 
+    steering_card       An ordered dictionary of all the keys and values in a
+                        CORSIKA steering card. In the CORSIKA steering card,
                         some keys may apear multiple times e.g. SEED or
-                        TELESCOPE. Therefore, for each key in the dictionary 
+                        TELESCOPE. Therefore, for each key in the dictionary
                         there is a list of the lines to this key in the steering
                         card.
 

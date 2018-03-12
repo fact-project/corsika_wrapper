@@ -13,7 +13,7 @@ def test_read_steering_card_lines_as_plain_text():
     print(os.getcwd())
     text = cw.tools.read_text_file(
         pkg_resources.resource_filename(
-            'corsika_wrapper', 
+            'corsika_wrapper',
             'tests/resources/example_steering_card.txt'))
     assert 'RUNNR' in text[0]
     assert 'EVTNR' in text[1]
@@ -43,7 +43,7 @@ def test_read_output_path_from_line_with_broken_string_in_it():
 def test_output_path_from_steering_card():
     steering_card = cw.tools.read_steering_card(
         pkg_resources.resource_filename(
-            'corsika_wrapper', 
+            'corsika_wrapper',
             'tests/resources/example_steering_card.txt'))
     output_path = cw.tools.output_path_from_steering_card(steering_card)
     assert output_path == 'my_file.eventio'
@@ -52,7 +52,7 @@ def test_output_path_from_steering_card():
 def test_find_EXIT_in_last_entry_of_steering_card():
     steering_card = cw.tools.read_steering_card(
         pkg_resources.resource_filename(
-            'corsika_wrapper', 
+            'corsika_wrapper',
             'tests/resources/example_steering_card.txt'))
     assert 'EXIT' == next(reversed(steering_card))
 
@@ -60,7 +60,7 @@ def test_find_EXIT_in_last_entry_of_steering_card():
 def test_overwrite_output_path_in_steering_card():
     steering_card = cw.tools.read_steering_card(
         pkg_resources.resource_filename(
-            'corsika_wrapper', 
+            'corsika_wrapper',
             'tests/resources/example_steering_card.txt'))
 
     new_steering_card = cw.tools.overwrite_output_path_in_steering_card(
@@ -77,7 +77,7 @@ def test_overwrite_output_path_in_steering_card():
 def test_set_output_path_in_steering_card_when_output_not_defined_in_steering_card():
     steering_card = cw.tools.read_steering_card(
         pkg_resources.resource_filename(
-            'corsika_wrapper', 
+            'corsika_wrapper',
             'tests/resources/example_steering_card_without_output_path.txt'))
 
     new_steering_card = cw.tools.overwrite_output_path_in_steering_card(
@@ -105,7 +105,7 @@ def test_config_dict():
 def test_read_steering_card_dict():
     steering_card = cw.tools.read_steering_card(
         pkg_resources.resource_filename(
-            'corsika_wrapper', 
+            'corsika_wrapper',
             'tests/resources/example_steering_card.txt'))
 
     assert steering_card['RUNNR'][0] == '1'
@@ -135,7 +135,7 @@ def test_read_steering_card_dict():
 
 def test_read_steering_card_dict():
     path = pkg_resources.resource_filename(
-            'corsika_wrapper', 
+            'corsika_wrapper',
             'tests/resources/example_steering_card.txt')
     steering_card = cw.tools.read_steering_card(path)
     steering_card_string = cw.tools.steering_card2str(steering_card)
