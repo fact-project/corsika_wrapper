@@ -11,20 +11,17 @@ def corsika(
     save_stdout=False
 ):
     """
-    Call corsika in a threadsafe way
+    Call corsika in a threadsafe way.
 
     Parameters
     ----------
-        steering_card                   A list of strings representing the
-                                        corsika steering card commands.
+        steering_card           An OrderedDict of strings.
 
-        output_path     (optional)      Path to the output. This option
-                                        overwrites the output path specified in
-                                        the steering card.
+        output_path             [Default None] Overwrites the output-path
+                                specified in the steering card.
 
-        save_stdout     (optional)      If True, the std out and std error of
-                                        corsika is written into text files next
-                                        to the output_path.
+        save_stdout             [Default False] If True, the stdout and stderr
+                                is written into text-files next to output_path.
     """
     # CORSIKA EXECUTABLE PATH
     try:
