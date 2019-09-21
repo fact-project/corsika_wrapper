@@ -8,7 +8,8 @@ from . import tools
 def corsika(
     steering_card,
     output_path=None,
-    save_stdout=False
+    save_stdout=False,
+    corsika_path=None
 ):
     """
     Call corsika in a threadsafe way.
@@ -22,14 +23,18 @@ def corsika(
 
         save_stdout             [Default False] If True, the stdout and stderr
                                 is written into text-files next to output_path.
+
+        corsika_path            [Default None] Explicitly set the path of your
+                                CORSIKA executable, in its run-directory.
     """
-    # CORSIKA EXECUTABLE PATH
-    try:
-        corsika_path = get_corsika_executable_from_config()
-    except FileNotFoundError:
-        print('No corsika executable specified yet.')
-        print('Use -c to specify the corsika executable')
-        raise FileNotFoundError
+    # CORSIKA PATH
+    if corsika_path is None:
+        try:
+            corsika_path = get_corsika_executable_from_config()
+        except FileNotFoundError:
+            print('No corsika executable specified yet.')
+            print('Use -c to specify the corsika executable')
+            raise FileNotFoundError
     corsika_path = os.path.abspath(corsika_path)
 
     # OUTPUT PATH
