@@ -97,11 +97,3 @@ def read_config(path):
     with open(path, 'r') as input_file:
         config = json.load(input_file)
     return config
-
-
-class Path:
-    def __init__(self, path):
-        self.absolute = os.path.abspath(path)
-        self.basename = os.path.basename(self.absolute)
-        self.basename_without_extension = os.path.splitext(self.basename)[0]
-        self.dirname = os.path.dirname(self.absolute)

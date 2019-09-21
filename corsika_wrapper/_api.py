@@ -44,9 +44,9 @@ def corsika(
             out.absolute)
 
     # THREAD SAFE
-    with tempfile.TemporaryDirectory(prefix='corsika_') as temp_path:
+    with tempfile.TemporaryDirectory(prefix='corsika_') as tmp_dir:
 
-        tmp_run = tools.Path(os.path.join(temp_path, 'run'))
+        tmp_run = tools.Path(os.path.join(tmp_dir, 'run'))
 
         shutil.copytree(
             os.path.dirname(corsika_path),
