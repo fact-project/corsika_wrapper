@@ -27,11 +27,11 @@ def corsika(
     try:
         config = tools.read_config(tools.get_config_file_path())
         corsika_path = config['corsika_executable_path']
-        corsika = tools.Path(corsika_path)
     except FileNotFoundError:
         print('No corsika executable specified yet.')
         print('Use -c to specify the corsika executable')
         raise FileNotFoundError
+    corsika_path = os.path.abspath(corsika_path)
 
     # OUTPUT PATH
     if output_path is None:
@@ -72,7 +72,7 @@ def corsika(
                 'w')
 
             corsika_return_value = subprocess.call(
-                os.path.join(tmp_run.absolute, corsika.basename),
+                os.path.join(tmp_run.absolute, os.path.basename(corsika_path)),
                 stdin=steering_card_pipe,
                 stdout=corsika_stdout,
                 stderr=corsika_stderr,
@@ -83,7 +83,7 @@ def corsika(
             corsika_stdout.close()
         else:
             corsika_return_value = subprocess.call(
-                os.path.join(tmp_run.absolute, corsika.basename),
+                os.path.join(tmp_run.absolute, os.path.basename(corsika_path)),
                 stdin=steering_card_pipe,
                 cwd=tmp_run.absolute
             )
