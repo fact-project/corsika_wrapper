@@ -75,12 +75,9 @@ def overwrite_output_path_in_steering_card(steering_card, output_path):
     return modified_steering_card
 
 
-def get_home_path():
-    return os.path.expanduser("~")
-
-
 def get_config_dir_path():
-    return os.path.join(get_home_path(), '.corsika_wrapper')
+    home_path = os.path.expanduser("~")
+    return os.path.join(home_path, '.corsika_wrapper')
 
 
 def get_config_file_path():
