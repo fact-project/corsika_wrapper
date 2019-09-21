@@ -25,8 +25,7 @@ def corsika(
     """
     # CORSIKA EXECUTABLE PATH
     try:
-        config = tools.read_config(tools.get_config_file_path())
-        corsika_path = config['corsika_executable_path']
+        corsika_path = get_corsika_executable_from_config()
     except FileNotFoundError:
         print('No corsika executable specified yet.')
         print('Use -c to specify the corsika executable')
@@ -35,62 +34,55 @@ def corsika(
 
     # OUTPUT PATH
     if output_path is None:
-        out = tools.Path(tools.output_path_from_steering_card(steering_card))
+        output_path = tools.output_path_from_steering_card(steering_card)
         modified_steering_card = steering_card
     else:
-        out = tools.Path(output_path)
         modified_steering_card = tools.overwrite_output_path_in_steering_card(
             steering_card,
-            out.absolute)
+            os.path.abspath(output_path))
+    output_path = os.path.abspath(output_path)
 
     # THREAD SAFE
     with tempfile.TemporaryDirectory(prefix='corsika_') as tmp_dir:
-
-        tmp_run = tools.Path(os.path.join(tmp_dir, 'run'))
-
-        shutil.copytree(
-            os.path.dirname(corsika_path),
-            tmp_run.absolute,
-            symlinks=False)
+        tmp_corsika_run_dir = os.path.join(tmp_dir, 'run')
+        corsika_run_dir = os.path.dirname(corsika_path)
+        shutil.copytree(corsika_run_dir, tmp_corsika_run_dir, symlinks=False)
+        tmp_corsika_path = os.path.join(
+            tmp_corsika_run_dir,
+            os.path.basename(corsika_path))
 
         steering_card_pipe, pwrite = os.pipe()
         os.write(
             pwrite,
             str.encode(tools.steering_card2str(modified_steering_card)))
         os.close(pwrite)
+        out_dirname = os.path.dirname(output_path)
+        out_basename = os.path.basename(output_path)
 
         if save_stdout:
-            corsika_stdout = open(
-                os.path.join(
-                    out.dirname,
-                    out.basename+'.stdout'),
-                'w')
-            corsika_stderr = open(
-                os.path.join(
-                    out.dirname,
-                    out.basename+'.stderr'),
-                'w')
+            stdout_path = os.path.join(out_dirname, out_basename+'.stdout')
+            stderr_path = os.path.join(out_dirname, out_basename+'.stderr')
+            stdout = open(stdout_path, 'w')
+            stderr = open(stderr_path, 'w')
 
             corsika_return_value = subprocess.call(
-                os.path.join(tmp_run.absolute, os.path.basename(corsika_path)),
+                tmp_corsika_path,
                 stdin=steering_card_pipe,
-                stdout=corsika_stdout,
-                stderr=corsika_stderr,
-                cwd=tmp_run.absolute
-            )
+                stdout=stdout,
+                stderr=stderr,
+                cwd=tmp_corsika_run_dir)
 
-            corsika_stderr.close()
-            corsika_stdout.close()
+            stderr.close()
+            stdout.close()
         else:
             corsika_return_value = subprocess.call(
-                os.path.join(tmp_run.absolute, os.path.basename(corsika_path)),
+                tmp_corsika_path,
                 stdin=steering_card_pipe,
-                cwd=tmp_run.absolute
-            )
+                cwd=tmp_corsika_run_dir)
 
         # User and group are allowed to read and write to the output file
-        if os.path.isfile(out.absolute):
-            os.chmod(out.absolute, 0o664)
+        if os.path.isfile(output_path):
+            os.chmod(output_path, 0o664)
 
     return corsika_return_value
 
