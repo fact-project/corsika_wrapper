@@ -1,6 +1,6 @@
-from distutils.core import setup
+import setuptools
 
-setup(
+setuptools.setup(
     name='corsika_wrapper',
     version='1.0.1',
     description='Call CORSIKA in a thread safe and comfortable way.',
