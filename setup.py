@@ -19,5 +19,4 @@ setuptools.setup(
     entry_points={'console_scripts': [
         'corsika = corsika_wrapper.main:main',
     ]},
-    zip_safe=False,
 )
