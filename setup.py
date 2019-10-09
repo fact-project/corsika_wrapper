@@ -6,7 +6,7 @@ setuptools.setup(
     description='Call CORSIKA in a thread safe and comfortable way.',
     url='https://github.com/fact-project/corsika_wrapper.git',
     author='Sebastian Achim Mueller',
-    author_email='sebmuell@phys.ethz.ch',
+    author_email='sebastian-achim.mueller@mpi-hd.mpg.de',
     license='GPL v3',
     packages=[
         'corsika_wrapper',
