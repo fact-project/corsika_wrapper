@@ -6,7 +6,7 @@ with open("README.md", "r") as f:
 
 setuptools.setup(
     name='corsika_wrapper',
-    version='1.0.2,
+    version='1.0.2',
     description='Call CORSIKA in a thread safe and comfortable way.',
     long_description=long_description,
     long_description_content_type='text/markdown',
