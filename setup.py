@@ -1,4 +1,5 @@
 import setuptools
+import os
 
 setuptools.setup(
     name='corsika_wrapper',
@@ -11,7 +12,7 @@ setuptools.setup(
     packages=[
         'corsika_wrapper',
     ],
-    package_data={'corsika_wrapper': ['tests/resources/*']},
+    package_data={'corsika_wrapper': [os.path.join('tests', 'resources','*')]},
     install_requires=[
         'docopt',
     ],
