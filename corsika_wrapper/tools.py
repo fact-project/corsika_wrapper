@@ -1,6 +1,10 @@
 import os
 import json
 from collections import OrderedDict
+from tempfile import TemporaryDirectory
+import signal
+
+from typing import AnyStr
 
 
 def read_text_file(path):
@@ -94,3 +98,31 @@ def read_config(path):
     with open(path, 'r') as input_file:
         config = json.load(input_file)
     return config
+
+
+class SignalResistantTemporaryDirectory(TemporaryDirectory):
+
+    signals = {
+        signal.SIGINT, 
+        signal.SIGTERM,
+    }
+
+    def __enter__(self) -> AnyStr:
+        def rm_tmp_dir(signum, frame):
+            self.cleanup()
+            # resetting signal handler to default and reraising it
+            signal.signal(signum, signal.SIG_DFL)
+            signal.raise_signal(signum)
+
+        # by default, when the program is aborted, /tmp/corsika_?????? dir is left and must be removed manually
+        # here we make sure to catch the signals used to interrupt and execute cleanup before exiting
+        for s in self.signals:
+            signal.signal(s, rm_tmp_dir)
+
+        return super().__enter__()
+
+    def __exit__(self, *exc_args) -> None:
+        super().__exit__(*exc_args)
+        # resetting signal handler back to defaults
+        for s in self.signals:
+            signal.signal(s, signal.SIG_DFL)
